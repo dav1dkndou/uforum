@@ -33,47 +33,6 @@ Route::middleware(['guest.internal'])->group(function () {
 
 });
 
-// Autocomplete API (public JSON data) - Accessible by all users
-Route::get('/api/autocomplete/students', function (\Illuminate\Http\Request $request) {
-    $q = strtolower($request->input('q', ''));
-    $json = json_decode(file_get_contents(base_path('data/students.json')), true);
-    $names = collect($json['students'] ?? [])->pluck('nama');
-    if ($q) {
-        $names = $names->filter(fn($n) => str_contains(strtolower($n), $q));
-    }
-    return response()->json($names->values()->take(10));
-})->name('api.autocomplete.students');
-
-Route::get('/api/autocomplete/dosen', function (\Illuminate\Http\Request $request) {
-    $q = strtolower($request->input('q', ''));
-    $json = json_decode(file_get_contents(base_path('data/dosen.json')), true);
-    $names = collect();
-    foreach ($json as $faculty => $members) {
-        foreach ($members as $m) {
-            $names->push($m['nama']);
-        }
-    }
-    if ($q) {
-        $names = $names->filter(fn($n) => str_contains(strtolower($n), $q));
-    }
-    return response()->json($names->values()->take(10));
-})->name('api.autocomplete.dosen');
-
-// Autocomplete endpoint for users (returns {id, name} for FK binding)
-Route::get('/api/autocomplete/users', function (\Illuminate\Http\Request $request) {
-    $q = $request->input('q', '');
-    $role = $request->input('role', '');
-    $query = \App\Models\User::query();
-    if ($q) {
-        $query->where('name', 'like', "%{$q}%");
-    }
-    if ($role) {
-        $query->where('role', $role);
-    }
-    return response()->json(
-        $query->orderBy('name')->take(15)->get(['id', 'name', 'email', 'role'])
-    );
-})->name('api.autocomplete.users');
 
 /*
 |--------------------------------------------------------------------------

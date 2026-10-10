@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Support\ActivitySubmissionRepository;
 use Illuminate\View\View;
 use App\Models\ActivitySubmission;
 use App\Models\User;
@@ -479,7 +478,7 @@ class KemahasiswaanController extends Controller
     public function toggleStatus(\Illuminate\Http\Request $request, $id)
     {
         $org = \App\Models\Organization::findOrFail($id);
-        $this->authorize('update', $org);
+        $this->authorize('toggleStatus', $org);
 
         if ($org->kategori === 'BEM') {
             abort(403, 'Akun BEM tidak dapat dinonaktifkan.');

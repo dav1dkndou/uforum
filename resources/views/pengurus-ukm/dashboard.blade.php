@@ -119,15 +119,15 @@
     @php
         $org = auth()->user()->organization;
         $fields = [
-            'Logo Organisasi' => $org->logo_path,
-            'Banner Organisasi' => $org->banner_path,
-            'Deskripsi' => $org->description,
-            'Visi' => $org->vision,
-            'Misi' => $org->mission,
-            'Values' => $org->values,
-            'Struktur' => $org->structure,
-            'WhatsApp' => $org->whatsapp,
-            'Email' => $org->email,
+            'Logo Organisasi' => $org?->logo_path,
+            'Banner Organisasi' => $org?->banner_path,
+            'Deskripsi' => $org?->description,
+            'Visi' => $org?->vision,
+            'Misi' => $org?->mission,
+            'Values' => $org?->values,
+            'Struktur' => $org?->structure,
+            'WhatsApp' => $org?->whatsapp,
+            'Email' => $org?->email,
         ];
         $filledCount = 0;
         $missing = [];

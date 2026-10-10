@@ -18,15 +18,6 @@ class OrganizationPolicy
     }
 
     /**
-     * Only Kemahasiswaan can edit the organizational structure
-     * (ketua, sekretaris, bendahara, advisor).
-     */
-    public function updateStructure(User $user, Organization $organization)
-    {
-        return $user->role === 'kemahasiswaan';
-    }
-
-    /**
      * Toggle status is only allowed for non-BEM organizations
      * and only by Kemahasiswaan.
      */

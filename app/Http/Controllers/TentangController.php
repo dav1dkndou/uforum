@@ -11,8 +11,6 @@ class TentangController extends Controller
      */
     public function index(Request $request)
     {
-        $menuItems = null;
-
-        return view('mahasiswa.tentang.index', compact('menuItems'));
+        return view('mahasiswa.tentang.index');
     }
 }
